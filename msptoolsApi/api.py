@@ -1,0 +1,60 @@
+from flask import request
+from flask_restplus import Api, Resource, fields
+from msptoolsApi.result import Result
+import msptools
+from msptools import utils
+
+
+def start(apiflask):
+    ns = apiflask.namespace("msp", description="w2w managment")
+
+    @ns.route("/check_api", methods=["GET"])
+    class CheckApi(Resource):
+        def get(self):
+            return "API MSP Tools is up!"
+
+    location = apiflask.model("location", {"lon": fields.Float, "lat": fields.Float})
+    specie = apiflask.model(
+        "specie",
+        {
+            "name": fields.String,
+            "salinity_min": fields.Float,
+            "salinity_max": fields.Float,
+            "temperature_min": fields.Float,
+            "temperature_max": fields.Float,
+        },
+    )
+    dates = apiflask.model(
+        "dates",
+        {"ini": fields.String("2015-01-01"), "end": fields.String("2015-03-01")},
+    )
+    params_biological = apiflask.model(
+        "BioParams",
+        {
+            "point": fields.Nested(location),
+            "specie": fields.Nested(specie),
+            "dates": fields.Nested(dates),
+        },
+    )
+
+    @ns.route("/biological/", methods=["POST"])
+    class Biological(Resource):
+        # @ns.marshal_with(params_biological)
+        @ns.expect(params_biological)
+        def post(self):
+            try:
+                payload = request.json
+                bio_index = msptools.run_biological(payload)
+                return Result(
+                    Result.RESULT_OK, "", round(float(bio_index), 2)
+                ).to_json()
+            except msptools.utils.LandException as lex:
+                return Result(Result.RESULT_FAIL, lex.args[0], -997).to_json()
+            except ValueError as vex:
+                msg = u"Invalid Parameters: {0}".format(vex.args)
+                return Result(Result.RESULT_FAIL, msg, -998).to_json()
+            except Exception as ex:
+                msg = u"Error calculating index: {0}".format(ex)
+                return Result(Result.RESULT_FAIL, msg, -999).to_json()
+
+    params_suma = apiflask.model("suma", {"x": fields.Float, "y": fields.Float})

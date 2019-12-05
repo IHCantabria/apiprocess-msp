@@ -1,0 +1,34 @@
+{
+    "workbench.colorCustomizations": {
+        "activityBar.background": "#b8cbc4",
+        "activityBar.activeBorder": "#947ea1",
+        "activityBar.foreground": "#15202b",
+        "activityBar.inactiveForeground": "#15202b99",
+        "activityBarBadge.background": "#947ea1",
+        "activityBarBadge.foreground": "#15202b",
+        "titleBar.activeBackground": "#9bb5ac",
+        "titleBar.inactiveBackground": "#9bb5ac99",
+        "titleBar.activeForeground": "#15202b",
+        "titleBar.inactiveForeground": "#15202b99",
+        "statusBar.background": "#9bb5ac",
+        "statusBarItem.hoverBackground": "#7e9f94",
+        "statusBar.foreground": "#15202b"
+    },
+    "peacock.color": "#9bb5ac",
+    "python.pythonPath": "env/bin/python3",
+    "python.linting.pylintEnabled": true,
+    "python.linting.enabled": true,
+    "python.formatting.provider": "black",
+
+    "pythonTestExplorer.testFramework": "unittest",
+    "python.testing.unittestArgs": [
+        "-v",
+        "-s",
+        "./tests",
+        "-p",
+        "test_*.py"
+    ],
+    "python.testing.pyTestEnabled": false,
+    "python.testing.nosetestsEnabled": false,
+    "python.testing.unittestEnabled": true
+}

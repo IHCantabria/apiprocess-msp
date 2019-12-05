@@ -1,0 +1,60 @@
+import apiDebug
+import msptools
+import unittest
+import json
+
+
+class TestApiSCTools(unittest.TestCase):
+    def setUp(self):
+        self.params = {
+            "point": {"lon": -13.016, "lat": 28.486, "depth": 0},
+            "specie": {
+                "name": "European seabass",
+                "salinity_min": 30,
+                "salinity_max": 40,
+                "temperature_min": 18,
+                "temperature_max": 26,
+            },
+            "dates": {"ini": "2015-01-01", "end": "2015-03-01"},
+        }
+
+    def test_biological(self):
+        expected_result = 0.27
+        app = apiDebug.app
+        tester = app.test_client(self)
+        response = (
+            tester.post(
+                "http://localhost/msp/biological/",
+                data=json.dumps(self.params),
+                content_type="application/json",
+            ),
+        )
+        status_code = response[0].status_code
+        jsonResult = json.loads(response[0].data)
+        result = round(float(jsonResult.get("value")), 3)
+
+        self.assertEqual(status_code, 200)
+        self.assertAlmostEqual(result, expected_result, delta=0.01)
+
+    def test_biological_error(self):
+        app = apiDebug.app
+        tester = app.test_client(self)
+        payload = {
+            "point": {"lon": -13.016, "lat": 28.486},
+            "dates": {"ini": "2015-01-01", "end": "2015-03-01"},
+        }
+        response = (
+            tester.post(
+                "http://localhost/msp/biological/",
+                data=json.dumps(payload),
+                content_type="application/json",
+            ),
+        )
+
+        jsonResult = json.loads(response[0].data)
+        exec_status = jsonResult.get("status")
+        self.assertEqual(exec_status, "ERROR")
+
+
+if __name__ == "__main__":
+    unittest.main()
