@@ -66,6 +66,35 @@ class TestApiSCTools(unittest.TestCase):
         exec_status = jsonResult.get("status")
         self.assertEqual(exec_status, "ERROR")
 
+    def test_biological_land_exception(self):
+        app = apiDebug.app
+        tester = app.test_client(self)
+        payload = {
+            "point": {"lon": -2.445556, "lat": 42.47},
+            "specie": {
+                "name": "European seabass",
+                "salinity_min": 30,
+                "salinity_max": 40,
+                "temperature_min": 18,
+                "temperature_max": 26,
+            },
+            "dates": {"ini": "2015-01-01", "end": "2015-03-01"},
+        }
+        response = (
+            tester.post(
+                "http://localhost/msp/biological/",
+                data=json.dumps(payload),
+                content_type="application/json",
+            ),
+        )
+
+        jsonResult = json.loads(response[0].data)
+
+        exec_status = jsonResult.get("status")
+        self.assertEqual(exec_status, "ERROR")
+        exec_code = jsonResult.get("value")
+        self.assertEqual(exec_code, -997)
+
     def test_wave_resource(self):
         expected_result = 0.7375
         app = apiDebug.app
