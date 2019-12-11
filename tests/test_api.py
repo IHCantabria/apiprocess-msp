@@ -35,7 +35,7 @@ class TestApiSCTools(unittest.TestCase):
         tester = app.test_client(self)
         response = (
             tester.post(
-                "http://localhost/msp/biological/",
+                "/msp/biological/",
                 data=json.dumps(self.bio_params),
                 content_type="application/json",
             ),
@@ -56,7 +56,7 @@ class TestApiSCTools(unittest.TestCase):
         }
         response = (
             tester.post(
-                "http://localhost/msp/biological/",
+                "/msp/biological/",
                 data=json.dumps(payload),
                 content_type="application/json",
             ),
@@ -82,7 +82,7 @@ class TestApiSCTools(unittest.TestCase):
         }
         response = (
             tester.post(
-                "http://localhost/msp/biological/",
+                "/msp/biological/",
                 data=json.dumps(payload),
                 content_type="application/json",
             ),
@@ -101,7 +101,7 @@ class TestApiSCTools(unittest.TestCase):
         tester = app.test_client(self)
         response = (
             tester.post(
-                "http://localhost/msp/wave/",
+                "/msp/wave/",
                 data=json.dumps(self.wave_params),
                 content_type="application/json",
             ),
