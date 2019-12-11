@@ -133,7 +133,7 @@ def start(apiflask):
             try:
                 payload = request.json
                 data_serie = msptools.load_historical_serie(payload)
-                return Result(Result.RESULT_OK, '', data_serie).to_json()
+                return Result(Result.RESULT_OK, "", data_serie).to_json()
             except Exception as ex:
-                msg = u'Error retrieving historical data: {0}'.format(ex)
+                msg = u"Error retrieving historical data: {0}".format(ex)
                 return Result(Result.RESULT_FAIL, msg, -999).to_json()
