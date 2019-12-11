@@ -1,6 +1,6 @@
 class Result(object):
-    RESULT_OK = "OK"
-    RESULT_FAIL = "ERROR"
+    OK = "OK"
+    FAIL = "ERROR"
 
     def __init__(self, status, msg, value):
 
