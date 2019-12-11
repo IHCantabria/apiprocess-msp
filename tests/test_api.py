@@ -6,7 +6,7 @@ import json
 
 class TestApiSCTools(unittest.TestCase):
     def setUp(self):
-        self.params = {
+        self.bio_params = {
             "point": {"lon": -13.016, "lat": 28.486, "depth": 0},
             "specie": {
                 "name": "European seabass",
@@ -36,7 +36,7 @@ class TestApiSCTools(unittest.TestCase):
         response = (
             tester.post(
                 "http://localhost/msp/biological/",
-                data=json.dumps(self.params),
+                data=json.dumps(self.bio_params),
                 content_type="application/json",
             ),
         )
