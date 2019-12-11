@@ -125,3 +125,15 @@ def start(apiflask):
             except Exception as ex:
                 msg = u"Error calculating index: {0}".format(ex)
             return Result(Result.RESULT_FAIL, msg, -999).to_json()
+
+    @ns.route("/historical", methods=["POST"])
+    class Historical(Resource):
+        @ns.expect(params_biological)
+        def post(self):
+            try:
+                payload = request.json
+                data_serie = msptools.load_historical_serie(payload)
+                return Result(Result.RESULT_OK, '', data_serie).to_json()
+            except Exception as ex:
+                msg = u'Error retrieving historical data: {0}'.format(ex)
+                return Result(Result.RESULT_FAIL, msg, -999).to_json()

@@ -136,6 +136,51 @@ class TestApiSCTools(unittest.TestCase):
         self.assertEqual(status_code, 200)
         self.assertAlmostEqual(result, expected_result, delta=0.01)
 
+    def test_load_historical(self):
+        app = apiDebug.app
+        tester = app.test_client(self)
+        response = (
+            tester.post(
+                "/msp/historical",
+                data=json.dumps(self.bio_params),
+                content_type="application/json",
+            ),
+        )
+        status_code = response[0].status_code
+        self.assertEqual(status_code, 200)
+        jsonResult = json.loads(response[0].data)
+        self.assertIsNotNone(jsonResult)
+
+        exec_status = jsonResult.get("status")
+        self.assertEqual(exec_status, "OK")
+        exec_result = jsonResult.get("value")["measures"][0]["values"]
+        self.assertEqual(len(exec_result), 60)
+
+    def test_get_temperature(self):
+        timestamp = "1420200000.0"  # 2/1/2015
+        expected_value = 18.6481216738  # temp on 2/1/2015(day/month/year)
+
+        app = apiDebug.app
+        tester = app.test_client(self)
+        response = (
+            tester.post(
+                "/msp/historical",
+                data=json.dumps(self.bio_params),
+                content_type="application/json",
+            ),
+        )
+        status_code = response[0].status_code
+        self.assertEqual(status_code, 200)
+        jsonResult = json.loads(response[0].data)
+        self.assertIsNotNone(jsonResult)
+
+        exec_status = jsonResult.get("status")
+        self.assertEqual(exec_status, "OK")
+        measures = jsonResult.get("value")["measures"]
+        for measured_variable in measures:
+            if measured_variable["values"][0] == timestamp:
+                self.assertEqual(measured_variable["values"][1], expected_value)
+
 
 if __name__ == "__main__":
     unittest.main()
