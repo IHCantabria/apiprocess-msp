@@ -57,4 +57,40 @@ def start(apiflask):
                 msg = u"Error calculating index: {0}".format(ex)
                 return Result(Result.RESULT_FAIL, msg, -999).to_json()
 
-    params_suma = apiflask.model("suma", {"x": fields.Float, "y": fields.Float})
+    wave_config = apiflask.model(
+        "config",
+        {
+            "hs_min": fields.Float,
+            "hs_max": fields.Float,
+            "tp_min": fields.Float,
+            "tp_max": fields.Float,
+            "cge_min": fields.Float,
+        },
+    )
+    params_wave = apiflask.model(
+        "WaveParams",
+        {
+            "config": fields.Nested(wave_config),
+            "point": fields.Nested(location),
+            "dates": fields.Nested(dates),
+        },
+    )
+
+    @ns.route("/wave/", methods=["POST"])
+    class Wave(Resource):
+        @ns.expect(params_wave)
+        def post(self):
+            try:
+                payload = request.json
+                wave_index = msptools.run_waveenergy(payload)
+                return Result(
+                    Result.RESULT_OK, "", round(float(wave_index), 2)
+                ).to_json()
+            except msptools.utils.LandException as lex:
+                return Result(Result.RESULT_FAIL, lex.args[0], -997).to_json()
+            except ValueError as vex:
+                msg = u"Invalid Parameters: {0}".format(vex.args)
+                return Result(Result.RESULT_FAIL, msg, -998).to_json()
+            except Exception as ex:
+                msg = u"Error calculating index: {0}".format(ex)
+                return Result(Result.RESULT_FAIL, msg, -999).to_json()

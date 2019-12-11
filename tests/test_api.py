@@ -17,6 +17,17 @@ class TestApiSCTools(unittest.TestCase):
             },
             "dates": {"ini": "2015-01-01", "end": "2015-03-01"},
         }
+        self.wave_params = {
+            "config": {
+                "hs_min": 1,
+                "hs_max": 5,
+                "tp_min": 5,
+                "tp_max": 14,
+                "cge_min": 15,
+            },
+            "point": {"lon": -13.016, "lat": 28.486},
+            "dates": {"start": "2015-01-01", "end": "2015-03-01",},
+        }
 
     def test_biological(self):
         expected_result = 0.27
@@ -54,6 +65,24 @@ class TestApiSCTools(unittest.TestCase):
         jsonResult = json.loads(response[0].data)
         exec_status = jsonResult.get("status")
         self.assertEqual(exec_status, "ERROR")
+
+    def test_wave_resource(self):
+        expected_result = 0.7375
+        app = apiDebug.app
+        tester = app.test_client(self)
+        response = (
+            tester.post(
+                "http://localhost/msp/wave/",
+                data=json.dumps(self.wave_params),
+                content_type="application/json",
+            ),
+        )
+        status_code = response[0].status_code
+        jsonResult = json.loads(response[0].data)
+        result = round(float(jsonResult.get("value")), 3)
+
+        self.assertEqual(status_code, 200)
+        self.assertAlmostEqual(result, expected_result, delta=0.01)
 
 
 if __name__ == "__main__":
