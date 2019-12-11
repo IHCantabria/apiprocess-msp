@@ -28,6 +28,11 @@ class TestApiSCTools(unittest.TestCase):
             "point": {"lon": -13.016, "lat": 28.486},
             "dates": {"start": "2015-01-01", "end": "2015-03-01",},
         }
+        self.wind_params = {
+            "config": {"hs_max": 5, "pow": 400},
+            "point": {"lon": -7.229, "lat": 48.75895},
+            "dates": {"start": "2010-02-01", "end": "2010-02-05",},
+        }
 
     def test_biological(self):
         expected_result = 0.27
@@ -103,6 +108,24 @@ class TestApiSCTools(unittest.TestCase):
             tester.post(
                 "/msp/wave/",
                 data=json.dumps(self.wave_params),
+                content_type="application/json",
+            ),
+        )
+        status_code = response[0].status_code
+        jsonResult = json.loads(response[0].data)
+        result = round(float(jsonResult.get("value")), 3)
+
+        self.assertEqual(status_code, 200)
+        self.assertAlmostEqual(result, expected_result, delta=0.01)
+
+    def test_wind_resource(self):
+        expected_result = 1
+        app = apiDebug.app
+        tester = app.test_client(self)
+        response = (
+            tester.post(
+                "/msp/wind/",
+                data=json.dumps(self.wind_params),
                 content_type="application/json",
             ),
         )

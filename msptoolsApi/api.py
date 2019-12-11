@@ -94,3 +94,34 @@ def start(apiflask):
             except Exception as ex:
                 msg = u"Error calculating index: {0}".format(ex)
                 return Result(Result.RESULT_FAIL, msg, -999).to_json()
+
+    wind_config = apiflask.model(
+        "config", {"hs_max": fields.Float, "pow": fields.Float,},
+    )
+    params_wind = apiflask.model(
+        "WaveParams",
+        {
+            "config": fields.Nested(wind_config),
+            "point": fields.Nested(location),
+            "dates": fields.Nested(dates),
+        },
+    )
+
+    @ns.route("/wind/", methods=["POST"])
+    class Wind(Resource):
+        @ns.expect(params_wind)
+        def post(self):
+            try:
+                payload = request.json
+                wind_index = msptools.run_windenergy(payload)
+                return Result(
+                    Result.RESULT_OK, "", round(float(wind_index), 2)
+                ).to_json()
+            except msptools.utils.LandException as lex:
+                return Result(Result.RESULT_FAIL, lex.args[0], -997).to_json()
+            except ValueError as vex:
+                msg = u"Invalid Parameters: {0}".format(vex.args)
+                return Result(Result.RESULT_FAIL, msg, -998).to_json()
+            except Exception as ex:
+                msg = u"Error calculating index: {0}".format(ex)
+            return Result(Result.RESULT_FAIL, msg, -999).to_json()
