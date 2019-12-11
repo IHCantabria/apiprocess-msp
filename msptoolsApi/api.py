@@ -37,7 +37,7 @@ def start(apiflask):
         },
     )
 
-    @ns.route("/biological/", methods=["POST"])
+    @ns.route("/biological", methods=["POST"])
     class Biological(Resource):
         # @ns.marshal_with(params_biological)
         @ns.expect(params_biological)
@@ -76,7 +76,7 @@ def start(apiflask):
         },
     )
 
-    @ns.route("/wave/", methods=["POST"])
+    @ns.route("/wave", methods=["POST"])
     class Wave(Resource):
         @ns.expect(params_wave)
         def post(self):
@@ -107,7 +107,7 @@ def start(apiflask):
         },
     )
 
-    @ns.route("/wind/", methods=["POST"])
+    @ns.route("/wind", methods=["POST"])
     class Wind(Resource):
         @ns.expect(params_wind)
         def post(self):
