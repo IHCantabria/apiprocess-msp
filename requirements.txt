@@ -18,7 +18,6 @@ git+https://github.com/IHCantabria/msp.tools.git@v0.9.1#egg=msptools
 netCDF4==1.5.3
 numpy==1.17.4
 pandas==0.25.3
-pkg-resources==0.0.0
 protobuf==3.11.1
 pyrsistent==0.15.6
 python-dateutil==2.8.1
