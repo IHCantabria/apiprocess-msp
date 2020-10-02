@@ -14,7 +14,7 @@ Jinja2==2.10.3
 jsonschema==3.2.0
 MarkupSafe==1.1.1
 more-itertools==8.0.2
-git+https://github.com/IHCantabria/msp.tools.git@v0.11.0-pre-dev#egg=msptools
+git+git://github.com/IHCantabria/msp.tools.git@v0.11.0-pre2-dev#egg=msptools
 netCDF4==1.5.3
 numpy==1.17.4
 pandas==0.25.3
