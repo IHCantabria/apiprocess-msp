@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 from codecs import open
 from os import path
 
-__version__ = "1.0.2"
+__version__ = "1.1.0"
 
 here = path.abspath(path.dirname(__file__))
 
@@ -24,8 +24,8 @@ setup(
     version=__version__,
     description="API for MSP Tools library",
     long_description=long_description,
-    url="http://git.ihcantabria.com:3000/IT/msptools.api",
-    download_url="http://git.ihcantabria.com:3000/IT/msptools.api/tarball/" + __version__,
+    url="https://github.com/IHCantabria/apiprocess-msp.git",
+    download_url="https://github.com/IHCantabria/apiprocess-msp/tarball/" + __version__,
     license="GPLv3",
     classifiers=[
         "Development Status :: 3 - Alpha",
