@@ -6,7 +6,7 @@ from msptools import utils
 
 
 def start(apiflask):
-    ns = apiflask.namespace("msp", description="Marine Spatial Planning")
+    ns = apiflask.namespace("tools", description="Marine Spatial Planning")
 
     @ns.route("/check_api", methods=["GET"])
     class CheckApi(Resource):

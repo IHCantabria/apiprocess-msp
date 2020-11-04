@@ -40,7 +40,7 @@ class TestApiSCTools(unittest.TestCase):
         tester = app.test_client(self)
         response = (
             tester.post(
-                "/msp/biological",
+                "/tools/biological",
                 data=json.dumps(self.bio_params),
                 content_type="application/json",
             ),
@@ -61,7 +61,7 @@ class TestApiSCTools(unittest.TestCase):
         }
         response = (
             tester.post(
-                "/msp/biological",
+                "/tools/biological",
                 data=json.dumps(payload),
                 content_type="application/json",
             ),
@@ -70,35 +70,6 @@ class TestApiSCTools(unittest.TestCase):
         jsonResult = json.loads(response[0].data)
         exec_status = jsonResult.get("status")
         self.assertEqual(exec_status, "ERROR")
-
-    def test_biological_land_exception(self):
-        app = apiDebug.app
-        tester = app.test_client(self)
-        payload = {
-            "point": {"lon": -2.445556, "lat": 42.47},
-            "specie": {
-                "name": "European seabass",
-                "salinity_min": 30,
-                "salinity_max": 40,
-                "temperature_min": 18,
-                "temperature_max": 26,
-            },
-            "dates": {"ini": "2015-01-01", "end": "2015-03-01"},
-        }
-        response = (
-            tester.post(
-                "/msp/biological",
-                data=json.dumps(payload),
-                content_type="application/json",
-            ),
-        )
-
-        jsonResult = json.loads(response[0].data)
-
-        exec_status = jsonResult.get("status")
-        self.assertEqual(exec_status, "ERROR")
-        exec_code = jsonResult.get("value")
-        self.assertEqual(exec_code, -997)
 
     def test_wave_resource(self):
         expected_result = 0.7375
@@ -106,7 +77,7 @@ class TestApiSCTools(unittest.TestCase):
         tester = app.test_client(self)
         response = (
             tester.post(
-                "/msp/wave",
+                "/tools/wave",
                 data=json.dumps(self.wave_params),
                 content_type="application/json",
             ),
@@ -124,7 +95,7 @@ class TestApiSCTools(unittest.TestCase):
         tester = app.test_client(self)
         response = (
             tester.post(
-                "/msp/wind",
+                "/tools/wind",
                 data=json.dumps(self.wind_params),
                 content_type="application/json",
             ),
@@ -141,7 +112,7 @@ class TestApiSCTools(unittest.TestCase):
         tester = app.test_client(self)
         response = (
             tester.post(
-                "/msp/historical",
+                "/tools/historical",
                 data=json.dumps(self.bio_params),
                 content_type="application/json",
             ),
@@ -164,7 +135,7 @@ class TestApiSCTools(unittest.TestCase):
         tester = app.test_client(self)
         response = (
             tester.post(
-                "/msp/historical",
+                "/tools/historical",
                 data=json.dumps(self.bio_params),
                 content_type="application/json",
             ),
