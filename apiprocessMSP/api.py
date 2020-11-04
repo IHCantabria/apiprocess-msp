@@ -1,6 +1,6 @@
 from flask import request
 from flask_restplus import Api, Resource, fields
-from msptoolsApi.result import Result
+from apiprocessMSP.result import Result
 import msptools
 from msptools import utils
 
@@ -11,7 +11,7 @@ def start(apiflask):
     @ns.route("/check_api", methods=["GET"])
     class CheckApi(Resource):
         def get(self):
-            return "API MSP Tools is up!"
+            return Result(Result.OK, "API is up!", 1).to_json()
 
     location = apiflask.model("location", {"lon": fields.Float, "lat": fields.Float})
     specie = apiflask.model(
