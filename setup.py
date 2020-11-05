@@ -24,8 +24,8 @@ setup(
     version=apiprocessMSP.__version__,
     description="API for MSP Tools library",
     long_description=long_description,
-    url="https://github.com/IHCantabria/apiprocess-msp.git",
-    download_url="https://github.com/IHCantabria/apiprocess-msp/tarball/" + __version__,
+    url="https://github.com:IHCantabria/apiprocess-msp.git,
+    download_url="https://github.com:IHCantabria/apiprocess-msp/tarball/" + __version__,
     license="GPLv3",
     classifiers=[
         "Development Status :: 3 - Alpha",
