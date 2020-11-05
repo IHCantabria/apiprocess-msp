@@ -1,8 +1,8 @@
 from setuptools import setup, find_packages
 from codecs import open
 from os import path
+import apiprocessMSP
 
-__version__ = "1.1.0"
 
 here = path.abspath(path.dirname(__file__))
 
@@ -21,7 +21,7 @@ dependency_links = [
 
 setup(
     name="msptoolsApi",
-    version=__version__,
+    version=apiprocessMSP.__version__,
     description="API for MSP Tools library",
     long_description=long_description,
     url="https://github.com/IHCantabria/apiprocess-msp.git",
