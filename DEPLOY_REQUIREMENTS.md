@@ -20,10 +20,6 @@
     - Dev
     - Prod
 
-## App folder
-
-    `apimsp`
-
 ## Distribution
 
     - Master

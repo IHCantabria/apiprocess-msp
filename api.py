@@ -15,5 +15,5 @@ def create():
     return app
 
 
-if __name__ == "apimsp":
+if __name__ == "apiprocess-msp":
     create()
