@@ -66,7 +66,7 @@ Select only if needed:
 
 
 * Modificar `/var/www/{{ app }}/env_{{ app }}/lib/python3.6/site-packages/msptools/config.py`:
-    - valor para `filepath`: `"/dat/{{ app }}/log/api.log"`
+    - valor para `filepath`: `"/dat/log/{{ app }}/apiprocess-msp.log"`
 
 
 
