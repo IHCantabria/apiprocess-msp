@@ -2,9 +2,13 @@
 
 🚀 Deploy requirements for IH-IT software
 
-## App Name
+## Playbook name
 
     - apiprocess-msp
+
+## Process Name
+
+    - msp
 
 ## App Template
 
@@ -22,21 +26,23 @@
 
 ## Distribution
 
-    - Master
+    - Main
 
 ## Url GIT
 
-    - ssh://git@github.com:IHCantabria/apiprocess-msp.git
+    - github.com/IHCantabria/apiprocess-msp.git
 
 ## DNS
 
 _Production_
 
-    - apiprocess.ihcantabria.com/msp
+    - apiprocess.ihcantabria.com/
 
 _Development_
 
-    - apiprocessdev.ihcantabria.com/msp
+    - apiprocessdev.ihcantabria.com/
+
+
 
 ## Other settings
 
@@ -65,14 +71,14 @@ Select only if needed:
 * Ejecutar requirements.txt
 
 
-* Modificar `/var/www/{{ app }}/env_{{ app }}/lib/python3.6/site-packages/msptools/config.py`:
-    - valor para `filepath`: `"/dat/log/{{ app }}/apiprocess-msp.log"`
+* Modificar `/var/www/{{ process_name }}/env_{{ process_name }}/lib/python3.6/site-packages/msptools/config.py`:
+    - valor para `filepath`: `"/dat/log/{{ process_name }}/apiprocess-msp.log"`
 
 
 
-* Modificar {{ app }}/env_{{ app }}/datahub/logging.ini:
+* Modificar {{ process_name }}/env_{{ process_name }}/datahub/logging.ini:
 
-    - la ruta en la línea 34 debe ser: "/dat/{{ app }}/log/datahubclient.log"
+    - la ruta en la línea 34 debe ser: "/dat/{{ process_name }}/log/datahubclient.log"
 
 
 
