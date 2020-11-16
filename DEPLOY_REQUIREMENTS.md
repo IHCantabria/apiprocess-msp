@@ -32,11 +32,11 @@
 
 _Production_
 
-    - apiprocess-msp.ihcantabria.com
+    - apiprocess.ihcantabria.com/msp
 
 _Development_
 
-    - apiprocess-msp.ihcantabria.com
+    - apiprocessdev.ihcantabria.com/msp
 
 ## Other settings
 
