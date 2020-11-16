@@ -20,7 +20,7 @@ To install use pip:
 
 Or clone the repo:
 
-    $ git clone ssh://git@github.com/IHCantabria//apiprocess-msp.git
+    $ git clone ssh://git@github.com/IHCantabria/apiprocess-msp.git
     $ python setup.py install
     
 Example
