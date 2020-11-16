@@ -71,12 +71,12 @@ Select only if needed:
 * Ejecutar requirements.txt
 
 
-* Modificar `/var/www/{{ process_name }}/env_{{ process_name }}/lib/python3.6/site-packages/msptools/config.py`:
+* Modificar `/var/www/{{ process_name }}/env/lib/python3.6/site-packages/msptools/config.py`:
     - valor para `filepath`: `"/dat/log/{{ process_name }}/apiprocess-msp.log"`
 
 
 
-* Modificar {{ process_name }}/env_{{ process_name }}/datahub/logging.ini:
+* Modificar {{ process_name }}/env/datahub/logging.ini:
 
     - la ruta en la línea 34 debe ser: "/dat/{{ process_name }}/log/datahubclient.log"
 
