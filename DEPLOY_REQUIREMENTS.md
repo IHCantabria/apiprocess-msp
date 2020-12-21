@@ -68,6 +68,9 @@ Select only if needed:
 
 **Do you need any other configuration?**
 
+Crear carpetas:
+- /dat/msp/log
+
 * Ejecutar requirements.txt
 
 
