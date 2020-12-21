@@ -69,7 +69,7 @@ Select only if needed:
 **Do you need any other configuration?**
 
 Crear carpetas:
-- /dat/msp/log
+- /dat/log/{{ app }}
 
 * Ejecutar requirements.txt
 
@@ -81,7 +81,7 @@ Crear carpetas:
 
 * Modificar {{ process_name }}/env/datahub/logging.ini:
 
-    - la ruta en la línea 34 debe ser: "/dat/{{ process_name }}/log/datahubclient.log"
+    - la ruta en la línea 34 debe ser: " /dat/log/{{ app }}/datahubclient.log"
 
 
 
